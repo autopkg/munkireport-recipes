@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads and packages the latest Munkireport installer.</string>
+    <key>Identifier</key>
+    <string>com.github.munkireport.autopkg.pkg</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Munkireport</string>
+        <key>BASEURL</key>
+        <string>http://localhost:8888</string>
+        <key>modules</key>
+        <array>
+          <string>munkireport</string>
+          <string>localadmin</string>
+          <string>timemachine</string>
+        </array>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiReportUrlCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>baseurl</key>
+                <string>%BASEURL%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>munkireportpackager.sh</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiReportPackager</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>

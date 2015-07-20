@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest Munkireport installer and imports into a Munki repo.</string>
+    <key>Identifier</key>
+    <string>com.github.munkireport.autopkg.munki</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Munkireport</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps</string>
+        <key>modules</key>
+        <array>
+          <string>munkireport</string>
+          <string>bluetooth</string>
+        </array>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>Munkireport is a reporting tool.</string>
+            <key>display_name</key>
+            <string>Munkireport</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+        </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.munkireport.autopkg.pkg</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+        </dict>
+    </array>
+</dict>
+</plist>
