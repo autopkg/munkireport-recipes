@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest Munkireport installer and imports into a Munki repo.</string>
+    <string>Downloads latest Munkireport installer and imports into a Munki repo.
+      By default it will package all modules that are defined on the server. You can override the modules by defining them below in the modules array.
+    </string>
     <key>Identifier</key>
     <string>com.github.munkireport.autopkg.munki</string>
     <key>Input</key>
@@ -14,8 +16,6 @@
         <string>apps</string>
         <key>modules</key>
         <array>
-          <string>munkireport</string>
-          <string>bluetooth</string>
         </array>
         <key>pkginfo</key>
         <dict>

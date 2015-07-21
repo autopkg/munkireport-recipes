@@ -3,7 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and packages the latest Munkireport installer.</string>
+    <string>Downloads and packages the latest Munkireport installer.
+    By default this recipe will package all modules that are defined on the server.
+    You can override which modules to package by defining them below in the modules array.
+    </string>
     <key>Identifier</key>
     <string>com.github.munkireport.autopkg.pkg</string>
     <key>Input</key>
@@ -14,9 +17,6 @@
         <string>http://localhost:8888</string>
         <key>modules</key>
         <array>
-          <string>munkireport</string>
-          <string>localadmin</string>
-          <string>timemachine</string>
         </array>
     </dict>
     <key>MinimumVersion</key>
