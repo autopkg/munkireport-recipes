@@ -72,7 +72,11 @@ class MunkiReportPackager(Processor):
             raise ProcessorError(
                 "creating package for %s failed: %s"
                 % (self.env["pathname"], err_out))
-
+                
+        if ! os.path.isfile(resultplist):
+            raise ProcessorError("no result plist found, run against " \
+            "Munkireport 2.5.3 or higher"
+        
         # Get package path from resultplist
         result = FoundationPlist.readPlist(resultplist)
         self.output("Created package %s" % result["pkg_path"])
