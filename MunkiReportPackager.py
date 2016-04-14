@@ -34,10 +34,14 @@ class MunkiReportPackager(Processor):
             "required": True,
             "description": "Path to the install script.",
         },
+        "pkg_identifier": {
+            "required": False,
+            "description": 
+                "identifier for the munkireport package, defaults to com.github.munkireport.",
+        },
         "modules": {
             "required": False,
-            "description": (
-                "An array of modules to be install."),
+            "description": "An array of modules to install.",
         }
     }
     output_variables = {
@@ -56,9 +60,11 @@ class MunkiReportPackager(Processor):
         packagedir = os.path.join(self.env["RECIPE_CACHE_DIR"], "downloads")
         # Result plist
         resultplist = os.path.join(self.env["RECIPE_CACHE_DIR"], "result.plist")
+        # Identifier
+        pkg_identifier = self.env.get("pkg_identifier", "com.github.munkireport")
 
-        args = [self.env["pathname"], "-i", packagedir, "-r", resultplist]
-
+        args = [self.env["pathname"], "-i", packagedir, "-r", resultplist, "-c", pkg_identifier]
+        
         # Call script.
         try:
             proc = subprocess.Popen(

@@ -18,6 +18,8 @@
         <key>modules</key>
         <array>
         </array>
+        <key>pkg_identifier</key>
+        <string>com.github.munkireport</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
