@@ -14,7 +14,7 @@
         <key>NAME</key>
         <string>Munkireport</string>
         <key>BASEURL</key>
-        <string>http://localhost:8888</string>
+        <string>https://munki.example.com:8888</string>
         <key>modules</key>
         <array>
         </array>
@@ -23,6 +23,15 @@
     <string>0.2.0</string>
     <key>Process</key>
     <array>
+        <dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+            <key>Arguments</key>
+            <dict>
+                <key>predicate</key>
+                <string>BASEURL == "https://munki.example.com:8888"</string>
+            </dict>
+        </dict>
         <dict>
             <key>Processor</key>
             <string>MunkiReportUrlCreator</string>
