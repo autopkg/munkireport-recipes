@@ -66,8 +66,9 @@ class MunkiReportPackager(Processor):
             (out, err_out) = proc.communicate()
         except OSError as err:
             raise ProcessorError(
-                "script execution failed with error code %d: %s"
-                % (err.errno, err.strerror))
+                "The downloaded script contains errors, please check \
+%s. (Error code %d: %s)"
+                % (self.env["pathname"], err.errno, err.strerror))
         if proc.returncode != 0:
             raise ProcessorError(
                 "creating package for %s failed: %s"
