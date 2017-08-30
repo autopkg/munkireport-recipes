@@ -34,10 +34,9 @@ class MunkiReportPackager(Processor):
             "required": True,
             "description": "Path to the install script.",
         },
-        "modules": {
+        "version": {
             "required": False,
-            "description": (
-                "An array of modules to be install."),
+            "description": "A preferred version"
         }
     }
     output_variables = {
@@ -58,6 +57,11 @@ class MunkiReportPackager(Processor):
         resultplist = os.path.join(self.env["RECIPE_CACHE_DIR"], "result.plist")
 
         args = [self.env["pathname"], "-i", packagedir, "-r", resultplist]
+        
+        preferred_version = self.env.get("version")
+        if preferred_version:
+            args = args + ["-v", preferred_version]
+
 
         # Call script.
         try:
