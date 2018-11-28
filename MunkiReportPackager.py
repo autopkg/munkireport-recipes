@@ -63,8 +63,8 @@ class MunkiReportPackager(Processor):
         baseurl = self.env.get("baseurl")
 
         args = [
-            self.env["pathname"], "-i", packagedir, "-r", resultplist, "-b",
-            baseurl
+            self.env["pathname"], "-b", baseurl, "-i", packagedir, "-r",
+            resultplist
         ]
 
         preferred_version = self.env.get("version")
