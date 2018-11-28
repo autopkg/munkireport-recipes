@@ -53,6 +53,11 @@
         <dict>
             <key>Processor</key>
             <string>MunkiReportPackager</string>
+            <key>Arguments</key>
+            <dict>
+              <key>baseurl</key>
+              <string>%BASEURL%</string>
+            </dict>
         </dict>
         <dict>
             <key>Processor</key>
