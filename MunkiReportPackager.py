@@ -61,7 +61,8 @@ class MunkiReportPackager(Processor):
                                    "result.plist")
         # BaseURL
         baseurl = self.env.get("baseurl")
-
+        if not baseurl.endswith("/"):
+            baseurl = baseurl + "/"
         args = [
             self.env["pathname"], "-b", baseurl, "-i", packagedir, "-r",
             resultplist
