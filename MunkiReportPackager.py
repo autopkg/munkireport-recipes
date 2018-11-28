@@ -60,7 +60,7 @@ class MunkiReportPackager(Processor):
         resultplist = os.path.join(self.env["RECIPE_CACHE_DIR"],
                                    "result.plist")
         # BaseURL
-        baseurl = self.eng.get("baseurl")
+        baseurl = self.env.get("baseurl")
 
         args = [
             self.env["pathname"], "-i", packagedir, "-r", resultplist, "-b",
