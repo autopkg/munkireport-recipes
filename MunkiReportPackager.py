@@ -22,7 +22,6 @@ import FoundationPlist
 
 from autopkglib import Processor, ProcessorError
 
-
 __all__ = ["MunkiReportPackager"]
 
 
@@ -37,12 +36,16 @@ class MunkiReportPackager(Processor):
         "version": {
             "required": False,
             "description": "A preferred version"
+        },
+        "baseurl": {
+            "required": True,
+            "description": "URL for a Munkireport packager script.",
         }
     }
     output_variables = {
         "pkg_path": {
-                "description": "The created package.",
-            }
+            "description": "The created package.",
+        }
     }
 
     def main(self):
@@ -54,14 +57,19 @@ class MunkiReportPackager(Processor):
         # Packagedir
         packagedir = os.path.join(self.env["RECIPE_CACHE_DIR"], "downloads")
         # Result plist
-        resultplist = os.path.join(self.env["RECIPE_CACHE_DIR"], "result.plist")
+        resultplist = os.path.join(self.env["RECIPE_CACHE_DIR"],
+                                   "result.plist")
+        # BaseURL
+        baseurl = self.eng.get("baseurl")
 
-        args = [self.env["pathname"], "-i", packagedir, "-r", resultplist]
-        
+        args = [
+            self.env["pathname"], "-i", packagedir, "-r", resultplist, "-b",
+            baseurl
+        ]
+
         preferred_version = self.env.get("version")
         if preferred_version:
             args = args + ["-v", preferred_version]
-
 
         # Call script.
         try:
@@ -71,13 +79,11 @@ class MunkiReportPackager(Processor):
         except OSError as err:
             raise ProcessorError(
                 "The downloaded script contains errors, please check \
-%s. (Error code %d: %s)"
-                % (self.env["pathname"], err.errno, err.strerror))
+%s. (Error code %d: %s)" % (self.env["pathname"], err.errno, err.strerror))
         if proc.returncode != 0:
-            raise ProcessorError(
-                "creating package for %s failed: %s"
-                % (self.env["pathname"], err_out))
-        
+            raise ProcessorError("creating package for %s failed: %s" %
+                                 (self.env["pathname"], err_out))
+
         if not os.path.isfile(resultplist):
             raise ProcessorError("no result plist found, run against " \
             "Munkireport 2.5.3 or higher")
