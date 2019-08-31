@@ -15,6 +15,7 @@
 # limitations under the License.
 """See docstring for MunkiReportPackager class"""
 
+from __future__ import absolute_import
 import os
 import stat
 import subprocess
