@@ -16,11 +16,12 @@
 """See docstring for MunkiReportPackager class"""
 
 from __future__ import absolute_import
+
 import os
 import stat
 import subprocess
-import FoundationPlist
 
+import FoundationPlist
 from autopkglib import Processor, ProcessorError
 
 __all__ = ["MunkiReportPackager"]
