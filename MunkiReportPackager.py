@@ -21,7 +21,7 @@ import os
 import stat
 import subprocess
 
-import FoundationPlist
+import plistlib
 from autopkglib import Processor, ProcessorError
 
 __all__ = ["MunkiReportPackager"]
@@ -92,7 +92,7 @@ class MunkiReportPackager(Processor):
             "Munkireport 2.5.3 or higher")
 
         # Get package path from resultplist
-        result = FoundationPlist.readPlist(resultplist)
+        result = plistlib.readPlist(resultplist)
         self.output("Created package %s" % result["pkg_path"])
         self.env["pkg_path"] = result["pkg_path"]
 
