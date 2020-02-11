@@ -20,7 +20,7 @@
         </array>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>2.0.2</string>
     <key>Process</key>
     <array>
         <dict>
