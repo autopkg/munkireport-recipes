@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/autopkg/python
 #
 # Copyright 2015 Arjen van Bochoven
 #
@@ -22,8 +22,10 @@ from autopkglib import Processor, ProcessorError
 
 __all__ = ["MunkiReportUrlCreator"]
 
+
 class MunkiReportUrlCreator(Processor):
     """Provides URL to the latest update."""
+
     description = __doc__
     input_variables = {
         "baseurl": {
@@ -32,9 +34,8 @@ class MunkiReportUrlCreator(Processor):
         },
         "modules": {
             "required": False,
-            "description":
-                "Array of modules to include in the install.",
-        }
+            "description": "Array of modules to include in the install.",
+        },
     }
     output_variables = {
         "url": {
@@ -51,11 +52,12 @@ class MunkiReportUrlCreator(Processor):
         modules = self.env.get("modules")
         if modules:
             for module in modules:
-                url = url + '/' + module
+                url = url + "/" + module
             # Format description
 
         self.env["url"] = url
         self.output("Found URL %s" % self.env["url"])
+
 
 if __name__ == "__main__":
     PROCESSOR = MunkiReportUrlCreator()

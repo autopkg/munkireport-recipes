@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/autopkg/python
 #
 # Copyright 2015 Arjen van Bochoven
 #
@@ -29,20 +29,18 @@ __all__ = ["MunkiReportPackager"]
 
 class MunkiReportPackager(Processor):
     """Creates a package."""
+
     description = __doc__
     input_variables = {
         "pathname": {
             "required": True,
             "description": "Path to the install script.",
         },
-        "version": {
-            "required": False,
-            "description": "A preferred version"
-        },
+        "version": {"required": False, "description": "A preferred version"},
         "baseurl": {
             "required": True,
             "description": "URL for a Munkireport packager script.",
-        }
+        },
     }
     output_variables = {
         "pkg_path": {
@@ -59,15 +57,19 @@ class MunkiReportPackager(Processor):
         # Packagedir
         packagedir = os.path.join(self.env["RECIPE_CACHE_DIR"], "downloads")
         # Result plist
-        resultplist = os.path.join(self.env["RECIPE_CACHE_DIR"],
-                                   "result.plist")
+        resultplist = os.path.join(self.env["RECIPE_CACHE_DIR"], "result.plist")
         # BaseURL
         baseurl = self.env.get("baseurl")
         if not baseurl.endswith("/"):
             baseurl = baseurl + "/"
         args = [
-            self.env["pathname"], "-b", baseurl, "-i", packagedir, "-r",
-            resultplist
+            self.env["pathname"],
+            "-b",
+            baseurl,
+            "-i",
+            packagedir,
+            "-r",
+            resultplist,
         ]
 
         preferred_version = self.env.get("version")
@@ -77,19 +79,24 @@ class MunkiReportPackager(Processor):
         # Call script.
         try:
             proc = subprocess.Popen(
-                args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            )
             (out, err_out) = proc.communicate()
         except OSError as err:
             raise ProcessorError(
                 "The downloaded script contains errors, please check \
-%s. (Error code %d: %s)" % (self.env["pathname"], err.errno, err.strerror))
+%s. (Error code %d: %s)"
+                % (self.env["pathname"], err.errno, err.strerror)
+            )
         if proc.returncode != 0:
-            raise ProcessorError("creating package for %s failed: %s" %
-                                 (self.env["pathname"], err_out))
+            raise ProcessorError(
+                "creating package for %s failed: %s" % (self.env["pathname"], err_out)
+            )
 
         if not os.path.isfile(resultplist):
-            raise ProcessorError("no result plist found, run against " \
-            "Munkireport 2.5.3 or higher")
+            raise ProcessorError(
+                "no result plist found, run against " "Munkireport 2.5.3 or higher"
+            )
 
         # Get package path from resultplist
         result = plistlib.readPlist(resultplist)
@@ -97,6 +104,6 @@ class MunkiReportPackager(Processor):
         self.env["pkg_path"] = result["pkg_path"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     PROCESSOR = MunkiReportPackager()
     PROCESSOR.execute_shell()
