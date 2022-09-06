@@ -91,8 +91,11 @@ class MunkiReportPackager(Processor):
             raise ProcessorError("no result plist found, run against " \
             "Munkireport 2.5.3 or higher")
 
-        # Get package path from resultplist
-        result = plistlib.readPlist(resultplist)
+        # Get package path from resultplist - catch deprecated .readPlist in Py3.9
+        try:
+            result = plistlib.readPlist(resultplist)
+        except AttributeError:
+            result = plistlib.load(open(resultplist, "rb"))
         self.output("Created package %s" % result["pkg_path"])
         self.env["pkg_path"] = result["pkg_path"]
 
